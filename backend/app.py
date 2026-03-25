@@ -5,9 +5,13 @@ from database import db, ma
 from models import User, user_schema, users_schema
 from sqlalchemy import or_
 
-app = Flask(__name__)
-CORS(app) # Enable CORS for all routes
+app = Flask(__name__, static_folder='../frontend', static_url_path='')
+CORS(app) 
 basedir = os.path.abspath(os.path.dirname(__file__))
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 # Database Configuration
 # Render uses 'postgresql://', but some legacy tools use 'postgres://'
